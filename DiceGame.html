@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title> Dice Gambelling </title>
+		<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script>
+		
+			function openMainDiv(){
+				if(document.getElementById('chooseNum').innerHTML == ''){
+					alert("Please Select Number before click play button");
+					return false;
+				}
+				document.getElementById('mainDivDiceGame').style.display = 'block';
+			}
+			
+			function generateNum(){
+				document.getElementById('stopDic').style.display = 'none';
+				generateRandomNum();
+				document.getElementById('startDic').style.display = 'block';
+			}
+			
+			function generateRandomNum(){
+				var randomImageName = (Math.floor(Math.random()*6)+1);
+				var img = document.getElementById('dicImg');
+				img.src = "./image/"+randomImageName+".jpg";
+				function messageDiceStop(){
+					if(randomImageName == document.getElementById('chooseNum').innerHTML){
+						alert("Congurations ! You win the prize.");
+					}else{
+						alert("Better Luck Next Time");
+					}
+				}
+				window.setTimeout(messageDiceStop, 500);
+			}
+			
+			function valueSelect(selectedValue){
+				document.getElementById('chooseNum').innerHTML = selectedValue;
+					document.getElementById('numberTable').style.background = 'aliceblue';
+				for(var i=1;i<7;i++){
+					document.getElementById('td'+i).onclick = null;
+				}
+				openMainDiv();
+			}
+		</script>
+		<style>
+			td:hover {
+			  background-color: Aliceblue;
+			}
+			
+			td{
+				text-align : center;
+			}
+
+			#mainDivDiceGame {
+				width: 500px;
+				height: 170px;
+			}
+
+			#mainDivDiceGame img {
+				max-width: 100%;
+				max-height: 100%;
+			}
+		</style>
+	</head>
+	<body style="background :aliceblue">
+		<div id="gameMainFrame" class="container">
+			<h3 class="text-info"> Choose Dic Number for player between 1 to 6</h3>
+			<div id="ruleId">
+				<span class="text-info">Please follow below mentioned rule. </span><br/>
+				<span class="text-info">1. Click on number for select & once you select the number screen going freeze.</span><br/>
+				<span class="text-info">2. If you number is same as dice return you will be reward.</span><br/>
+				<span class="text-info">3. Please click on number for role the dice. </span><br/>
+				<br/>
+					<table class="table table-bordered" id ="numberTable">
+						<tr>
+							<td id="td1" onclick = "$(this).css('background', 'red') ; valueSelect(1)">1</td>
+							<td id="td2" onclick = "$(this).css('background', 'red') ;valueSelect(2)">2</td>
+						</tr>
+						<tr>						
+							<td id="td3" onclick = "$(this).css('background', 'red') ;valueSelect(3)">3</td>
+							<td id="td4" onclick = "$(this).css('background', 'red') ; valueSelect(4)">4</td>
+						</tr>
+						<tr>
+							<td id="td5" onclick = "$(this).css('background', 'red') ; valueSelect(5)">5</td>
+							<td id="td6" onclick = "$(this).css('background', 'red') ; valueSelect(6)">6</td>
+						</tr>
+					</table>
+				<br/>
+			</div>
+		</div>
+	
+		<div id="mainDivDiceGame" style="display :none " class="container">
+		
+			<h3> Choosed Number :-  <span id="chooseNum" class="badge badge-secondary"></span></h3>
+			<img id="dicImg" src="./image/mainDic.gif" style="width :100px ; height:100px; ">
+			<button id="stopDic" onclick="generateNum()" class="btn btn-light"> Stop </button>
+			<button id="startDic" onClick="window.location.reload()" style="display :none " class="btn btn-light"> Click For Restart the Game </button>
+		</div>
+	</body>
+</html>
